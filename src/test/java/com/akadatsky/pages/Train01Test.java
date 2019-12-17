@@ -4,10 +4,10 @@ import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 
-public class Pages1Test {
+public class Train01Test {
 
     @Test
     public void testLengthOfLongestSubstring() {
-        assertEquals(Page1.lengthOfLongestSubstring("xiwlfnca"), 0);
+        assertEquals(Train01.lengthOfLongestSubstring("xiwlfnca"), 0);
     }
 }

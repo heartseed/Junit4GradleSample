@@ -2,7 +2,7 @@ package com.akadatsky.pages;
 
 import com.akadatsky.entities.ListNode;
 
-public class Page1 {
+public class Train01 {
 
     /**
      * Given an array of integers, return indices of the two numbers such that they add up to a specific target.
@@ -52,17 +52,16 @@ public class Page1 {
      * Given a string, find the length of the longest substring without repeating characters.
      *
      * Example 1:
-     *
      * Input: "abcabcbb"
      * Output: 3
      * Explanation: The answer is "abc", with the length of 3.
-     * Example 2:
      *
+     * Example 2:
      * Input: "bbbbb"
      * Output: 1
      * Explanation: The answer is "b", with the length of 1.
-     * Example 3:
      *
+     * Example 3:
      * Input: "pwwkew"
      * Output: 3
      * Explanation: The answer is "wke", with the length of 3.
@@ -86,6 +85,7 @@ public class Page1 {
      * nums2 = [2]
      *
      * The median is 2.0
+     *
      * Example 2:
      *
      * nums1 = [1, 2]
@@ -106,6 +106,7 @@ public class Page1 {
      * Input: "babad"
      * Output: "bab"
      * Note: "aba" is also a valid answer.
+     *
      * Example 2:
      *
      * Input: "cbbd"
@@ -138,10 +139,12 @@ public class Page1 {
      * Write the code that will take a string and make this conversion given a number of rows:
      *
      * string convert(string s, int numRows);
+     *
      * Example 1:
      *
      * Input: s = "PAYPALISHIRING", numRows = 3
      * Output: "PAHNAPLSIIGYIR"
+     *
      * Example 2:
      *
      * Input: s = "PAYPALISHIRING", numRows = 4
@@ -244,16 +247,15 @@ public class Page1 {
      * Determine whether an integer is a palindrome. An integer is a palindrome when it reads the same backward as forward.
      *
      * Example 1:
-     *
      * Input: 121
      * Output: true
-     * Example 2:
      *
+     * Example 2:
      * Input: -121
      * Output: false
      * Explanation: From left to right, it reads -121. From right to left, it becomes 121-. Therefore it is not a palindrome.
-     * Example 3:
      *
+     * Example 3:
      * Input: 10
      * Output: false
      * Explanation: Reads 01 from right to left. Therefore it is not a palindrome.
@@ -285,15 +287,15 @@ public class Page1 {
      * p = "a"
      * Output: false
      * Explanation: "a" does not match the entire string "aa".
-     * Example 2:
      *
+     * Example 2:
      * Input:
      * s = "aa"
      * p = "a*"
      * Output: true
      * Explanation: '*' means zero or more of the preceding element, 'a'. Therefore, by repeating 'a' once, it becomes "aa".
-     * Example 3:
      *
+     * Example 3:
      * Input:
      * s = "ab"
      * p = ".*"
@@ -306,8 +308,8 @@ public class Page1 {
      * p = "c*a*b"
      * Output: true
      * Explanation: c can be repeated 0 times, a can be repeated 1 time. Therefore, it matches "aab".
-     * Example 5:
      *
+     * Example 5:
      * Input:
      * s = "mississippi"
      * p = "mis*is*p*."
