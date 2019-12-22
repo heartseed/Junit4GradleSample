@@ -2,29 +2,36 @@ package com.akadatsky.pages;
 
 import com.akadatsky.entities.ListNode;
 
+import java.util.HashMap;
+
 public class Train01 {
 
     /**
      * Given an array of integers, return indices of the two numbers such that they add up to a specific target.
-     *
      * You may assume that each input would have exactly one solution, and you may not use the same element twice.
      *
-     * Example:
+     * Example: Given nums = [2, 7, 11, 15], target = 9, because nums[0] + nums[1] = 2 + 7 = 9, return [0, 1].
      *
-     * Given nums = [2, 7, 11, 15], target = 9,
-     *
-     * Because nums[0] + nums[1] = 2 + 7 = 9,
-     * return [0, 1].
-     *
-     * So, if we fix one of the numbers, say x,
-     * we have to scan the entire array to find the next number y = value - x
-     * where value is the input parameter. Can we change our array somehow so that this search becomes faster?
+     * So, if we fix one of the numbers, say x, we have to scan the entire array to find the next number
+     * y = (value - x) where value is the input parameter.
+     * Can we change our array somehow so that this search becomes faster?
      *
      * The second train of thought is, without changing the array, can we use additional space somehow?
      * Like maybe a hash map to speed up the search?
      *
      * */
     public static int[] twoSum(int[] nums, int target) {
+        /**
+         * Key point is that use hashmap, also store target - nums[i] as key.
+         * */
+
+        HashMap distance = new HashMap<Integer, Integer>();
+        for (int i = 0; i < nums.length; i++) {
+            if (distance.get(nums[i]) != null) {
+                return new int[]{(int) distance.get(nums[i]), i};
+            }
+            distance.put(target-nums[i], i);
+        }
         return null;
     }
 
@@ -45,7 +52,62 @@ public class Train01 {
      *
      * */
     public static ListNode addTwoNumbers(ListNode l1, ListNode l2) {
-        return null;
+
+        /**
+         * Key point is to create dummy startNode, and a pointer to scan. time O(n), space O(1)
+         *
+         * Linked lists are preferable over arrays when:
+         *
+         * you need constant-time insertions/deletions from the list (such as in real-time computing where time predictability is absolutely critical)
+         * you don't know how many items will be in the list. With arrays, you may need to re-declare and copy memory if the array grows too big
+         * you don't need random access to any elements
+         * you want to be able to insert items in the middle of the list (such as a priority queue)
+         *
+         * Arrays are preferable when:
+         *
+         * you need indexed/random access to elements
+         * you know the number of elements in the array ahead of time so that you can allocate the correct amount of memory for the array
+         * you need speed when iterating through all the elements in sequence. You can use pointer math on the array to access each element, whereas you need to lookup the node based on the pointer for each element in linked list, which may result in page faults which may result in performance hits.
+         * memory is a concern. Filled arrays take up less memory than linked lists. Each element in the array is just the data. Each linked list node requires the data as well as one (or more) pointers to the other elements in the linked list.
+         *
+         * */
+
+        if (l1 == null) {
+            return l2;
+        }
+        if (l2 == null) {
+            return l1;
+        }
+
+        // create tens cachedValue and dummy startNode
+        int tens = 0;
+        ListNode dummyNode = new ListNode(0);
+        ListNode pointer = dummyNode;
+
+        while (l1 != null && l2 != null) {
+            pointer.next = new ListNode((l1.val + l2.val + tens) % 10);
+            tens = (l1.val + l2.val + tens) / 10;
+            l1 = l1.next;
+            l2 = l2.next;
+            pointer = pointer.next;
+        }
+
+        while (l1 != null && l2 == null) {
+            pointer.next = new ListNode((l1.val + tens) % 10);
+            tens = (l1.val + tens) / 10;
+            l1 = l1.next;
+            pointer = pointer.next;
+        }
+
+        while(l2 != null) {
+            pointer.next = new ListNode((l2.val + tens) % 10);
+            tens = (l2.val + tens) / 10;
+            l2 = l2.next;
+            pointer = pointer.next;
+        }
+
+        pointer.next = new ListNode(tens);
+        return dummyNode.next;
     }
 
     /**
@@ -69,7 +131,36 @@ public class Train01 {
      *
      * */
     public static int lengthOfLongestSubstring(String s) {
-        return 0;
+        /**
+         * key point is to use two pointers (fixed end, dynamic start that maintained by a map).
+         * For each char in the string, every scan you can use one char as the endChar of the string (fixed end).
+         * */
+        HashMap<Character, Integer> positionStore = new HashMap<>();
+        for (int i = 0; i < s.length(); i++) {
+            // use the locationStore to store the char appeared location when scan from left.
+            // if it's not appeared before, it will be -1
+            // if it's scanned but duplicated, it will be marked as -1
+            positionStore.put(s.charAt(i), -1);
+        }
+
+        int longestLength = 0;
+        int start = 0;
+
+        for (int end = 0; end < s.length(); end++) {
+            // -1 means not appear in the [start, end], so just simply add it.
+            // otherwise, find the new start, and reset the map.
+            if (positionStore.get(s.charAt(end)) != -1) {
+                while (start <= positionStore.get(s.charAt(end))) {
+                    // everything before start set to -1.
+                    positionStore.put(s.charAt(start), -1);
+                    start += 1;
+                }
+            }
+
+            longestLength = (end - start + 1 > longestLength) ? end-start+1 : longestLength;
+            positionStore.put(s.charAt(end), end);
+        }
+        return longestLength;
     }
 
     /**
