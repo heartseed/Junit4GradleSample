@@ -1,4 +1,4 @@
 package com.akadatsky.tags;
 
-public class DP {
+public class DynamicPunch {
 }

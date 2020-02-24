@@ -4,7 +4,7 @@ import com.akadatsky.entities.TreeNode;
 
 import java.util.*;
 
-public class Tree {
+public class TreeSolutions {
 
     public List<List<TreeNode>> bfsTraversal1(TreeNode root) {
         if (root == null) {
