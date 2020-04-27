@@ -168,7 +168,7 @@ public class MergeK {
     //
     //Thus, we'll traverse almost NN nodes per pairing and merging, and repeat this procedure about \log_{2}{k}log
     //2 k times.
-    public ListNode mergeTwoLists5(ListNode l1, ListNode l2) {
+    public static ListNode mergeTwoLists5(ListNode l1, ListNode l2) {
         ListNode h = new ListNode(0);
         ListNode ans=h;
         while (l1 != null && l2 != null) {
@@ -190,7 +190,7 @@ public class MergeK {
         }
         return ans.next;
     }
-    public ListNode mergeKLists5(ListNode[] lists) {
+    public static ListNode mergeKLists5(ListNode[] lists) {
         if(lists.length==0){
             return null;
         }
