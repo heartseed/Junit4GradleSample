@@ -1,26 +1,23 @@
 package com.akadatsky;
 
+import com.akadatsky.design.ConnectedFour;
+
 import java.util.Scanner;
 
 public class Main {
 
-    /*
-     * 1: Password Validator Tool:
-     * Utility class with method  to validate password strength
-     * JUnit Test for this class
-     * Runnable main method to validate user console input.
-     * Rule: Passwords with length >= 8 are valid, others - not valid
-     */
     public static void main(String[] args) {
-        System.out.println("Please enter password: ");
-        Scanner scanner = new Scanner(System.in);
-        String password = scanner.nextLine();
+        System.out.println("Game start: ");
 
-        if (PasswordValidator.isValid(password)) {
-            System.out.println("Your password is valid");
-        } else {
-            System.out.println("Your password is not valid");
-        }
+        ConnectedFour engine = new ConnectedFour(8);
+        engine.move(1);
+        engine.move(2);
+        engine.move(1);
+        engine.move(2);
+        engine.move(1);
+        engine.move(2);
+        engine.move(1);
+        engine.move(2);
     }
 
 }
