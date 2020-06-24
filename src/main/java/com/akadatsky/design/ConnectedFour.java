@@ -8,6 +8,9 @@ public class ConnectedFour {
     private int[][] board;
     private int counter;
 
+    /**
+     * https://www.mathsisfun.com/games/connect4.html
+     * */
     public ConnectedFour(int n) {
         this.size = n;
         this.board = new int[n][n];
