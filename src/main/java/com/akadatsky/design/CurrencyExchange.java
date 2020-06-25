@@ -1,9 +1,6 @@
 package com.akadatsky.design;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class CurrencyExchange {
 
@@ -43,13 +40,14 @@ public class CurrencyExchange {
 
     public List<List<String>> findAllWays(String source, String target) {
         List<List<String>> ans = new ArrayList<>();
-        List<String> curr = new ArrayList<>();
+        ArrayList<String> curr = new ArrayList<>();
+        HashSet<String> visited = new HashSet<>();
 
-        findNextExchange(source, target, curr, ans);
+        findNextExchange(source, target, curr, ans, visited);
         return ans;
     }
 
-    public void findNextExchange(String source, String target, List<String> curr, List<List<String>> ans) {
+    public void findNextExchange(String source, String target, ArrayList<String> curr, List<List<String>> ans, HashSet<String> visited) {
         if (source.equals(target)) {
             curr.add(source);
             ans.add(curr);
@@ -57,9 +55,13 @@ public class CurrencyExchange {
         }
 
         curr.add(source);
+        visited.add(source);
         if (canExchange.containsKey(source)) {
             for (String next: canExchange.get(source)) {
-                findNextExchange(next, target, curr, ans);
+                System.out.println(source + " " + target + ":" + visited.toString());
+                if (!visited.contains(next)) {
+                    findNextExchange(next, target, (ArrayList<String>) curr.clone(), ans, (HashSet<String>) visited.clone());
+                }
             }
         }
     }
@@ -67,19 +69,21 @@ public class CurrencyExchange {
     /**
      * Find max profit
      * */
-    public float findMaxProfits(String source, String target) throws Exception {
-        float curProfit = 0;
+    public float findMaxProfits(String source, String target) {
+        float curProfit = 1;
+        HashSet<String> visited = new HashSet<>();
 
-        findNextProfit(source, target, curProfit);
+        findNextProfit(source, target, curProfit, visited);
         return maxProfit;
     }
 
-    public void findNextProfit(String source, String target, float curProfit) throws Exception {
+    public void findNextProfit(String source, String target, float curProfit, HashSet<String> visited) {
         if (source.equals(target)) {
             this.maxProfit = Math.max(maxProfit, curProfit);
             return;
         }
 
+        visited.add(source);
         if (canExchange.containsKey(source)) {
             for (String next: canExchange.get(source)) {
                 StringBuilder sb = new StringBuilder();
@@ -90,17 +94,15 @@ public class CurrencyExchange {
 
                 if (currency.containsKey(source_next)) {
                     float value = currency.get(source_next);
-                    curProfit *= value;
+                    float temp = curProfit * value;
+                    System.out.println(temp + "," + source_next);
 
-                    findNextProfit(next, target, curProfit);
-                } else {
-                    throw new Exception("invalid");
+                    if (!visited.contains(next)) {
+                        findNextProfit(next, target, temp, (HashSet<String>) visited.clone());
+                    }
+
                 }
             }
         }
     }
-
-
-
-
 }
